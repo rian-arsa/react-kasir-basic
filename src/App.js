@@ -1,8 +1,25 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import { Hasil, ListCategories, NavbarComponent } from "./components";
+import { Hasil, ListCategories, NavbarComponent, Menus } from "./components";
+import { API_URL } from "./utils/constanst";
 
 function App() {
+  const [menus, setMenus] = useState([]);
+
+  useEffect(() => {
+    axios({
+      method: "GET",
+      url: API_URL + "products",
+    })
+      .then((res) => {
+        setMenus(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   return (
     <>
       <NavbarComponent />
@@ -15,6 +32,13 @@ function App() {
                 <strong>Daftar Produk</strong>
               </h4>
               <hr />
+              <Row>
+                {menus
+                  ? menus.map((data) => {
+                      return <Menus menu={data} key={data.id} />;
+                    })
+                  : "Menu Kosong"}
+              </Row>
             </Col>
             <Hasil />
           </Row>
