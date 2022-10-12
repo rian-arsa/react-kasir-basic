@@ -6,11 +6,12 @@ import { API_URL } from "./utils/constanst";
 
 function App() {
   const [menus, setMenus] = useState([]);
+  const [category, setCategory] = useState("Makanan");
 
   useEffect(() => {
     axios({
       method: "GET",
-      url: API_URL + "products",
+      url: API_URL + "products?category.nama=" + category,
     })
       .then((res) => {
         setMenus(res.data);
@@ -18,7 +19,12 @@ function App() {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [category]);
+
+  const changeMenus = (category) => {
+    setCategory(category);
+    setMenus([]);
+  };
 
   return (
     <>
@@ -26,7 +32,7 @@ function App() {
       <div className="mt-3">
         <Container fluid>
           <Row>
-            <ListCategories />
+            <ListCategories changeMenus={changeMenus} category={category} />
             <Col>
               <h4>
                 <strong>Daftar Produk</strong>
