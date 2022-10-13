@@ -1,57 +1,17 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { Col, Container, Row } from "react-bootstrap";
-import { Hasil, ListCategories, NavbarComponent, Menus } from "./components";
-import { API_URL } from "./utils/constanst";
+import React from "react";
+import { NavbarComponent } from "./components";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Home, Sukses } from "./pages";
 
-function App() {
-  const [menus, setMenus] = useState([]);
-  const [category, setCategory] = useState("Makanan");
-
-  useEffect(() => {
-    axios({
-      method: "GET",
-      url: API_URL + "products?category.nama=" + category,
-    })
-      .then((res) => {
-        setMenus(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [category]);
-
-  const changeMenus = (category) => {
-    setCategory(category);
-    setMenus([]);
-  };
-
+export default function App() {
   return (
-    <>
+    <Router>
       <NavbarComponent />
-      <div className="mt-3">
-        <Container fluid>
-          <Row>
-            <ListCategories changeMenus={changeMenus} category={category} />
-            <Col>
-              <h4>
-                <strong>Daftar Produk</strong>
-              </h4>
-              <hr />
-              <Row>
-                {menus
-                  ? menus.map((data) => {
-                      return <Menus menu={data} key={data.id} />;
-                    })
-                  : "Menu Kosong"}
-              </Row>
-            </Col>
-            <Hasil />
-          </Row>
-        </Container>
-      </div>
-    </>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/sukses" element={<Sukses />} />
+        <Route path="*" element={<Home />} />
+      </Routes>
+    </Router>
   );
 }
-
-export default App;

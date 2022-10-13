@@ -11,13 +11,13 @@ import {
 
 const Icon = ({ nama }) => {
   if (nama === "Makanan")
-    return <FontAwesomeIcon icon={faUtensils} className="mr-2" />;
+    return <FontAwesomeIcon icon={faUtensils} className="me-2" />;
   if (nama === "Minuman")
-    return <FontAwesomeIcon icon={faCoffee} className="mr-2" />;
+    return <FontAwesomeIcon icon={faCoffee} className="me-1" />;
   if (nama === "Cemilan")
-    return <FontAwesomeIcon icon={faCheese} className="mr-2" />;
+    return <FontAwesomeIcon icon={faCheese} className="me-2" />;
 
-  return <FontAwesomeIcon icon={faUtensils} className="mr-2" />;
+  return <FontAwesomeIcon icon={faUtensils} className="me-2" />;
 };
 
 function ListCategories(props) {
