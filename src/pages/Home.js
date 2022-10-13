@@ -4,6 +4,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import { Hasil, ListCategories, Menus } from "../components";
 import { API_URL } from "../utils/constanst";
 import swal from "sweetalert";
+import TotalBayar from "../components/TotalBayar";
 
 function Home() {
   const [menus, setMenus] = useState([]);
@@ -128,6 +129,7 @@ function Home() {
               </Row>
             </Col>
             <Hasil keranjangs={keranjangs} />
+            <TotalBayar keranjangs={keranjangs} />
           </Row>
         </Container>
       </div>

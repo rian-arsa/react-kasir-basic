@@ -1,8 +1,34 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect } from "react";
 import { Image } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { API_URL } from "../utils/constanst";
 
 function Sukses() {
+  useEffect(() => {
+    axios({
+      method: "GET",
+      url: API_URL + "keranjangs",
+    })
+      .then((res) => {
+        res.data.map((item) => {
+          return axios({
+            method: "DELETE",
+            url: API_URL + "keranjangs/" + item.id,
+          })
+            .then((res) => {
+              console.log(res);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   return (
     <div className="mt-4 text-center mt-5">
       <Image src="assets/images/succes.svg" width={300} />
